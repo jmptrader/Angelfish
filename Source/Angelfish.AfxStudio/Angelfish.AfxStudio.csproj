@@ -123,6 +123,12 @@
   <ItemGroup>
     <Resource Include="Media\Icon.App.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Angelfish.AfxSystem.A.Common\Angelfish.AfxSystem.A.Common.csproj">
+      <Project>{60481d5e-52a0-4556-9d05-6b6269bacacb}</Project>
+      <Name>Angelfish.AfxSystem.A.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
