@@ -1,0 +1,16 @@
+﻿{
+
+  "Angelfish": {
+
+    "Package": {
+
+      "Title": "Test Operators",
+
+      "Homepage": "http://github.com/recurry/angelfish",
+
+      "Description": "Test operators for development use",
+
+      "Assembly": "Angelfish.AfxSystem.X.Plugins.Test.dll"
+    }
+  }
+}

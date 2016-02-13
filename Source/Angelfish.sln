@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angelfish.AfxSystem.A.Commo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angelfish.AfxSystem.X.Common", "Angelfish.AfxSystem.X.Common\Angelfish.AfxSystem.X.Common.csproj", "{CFD9EBE8-28B4-44DA-AA27-7882ED1A04FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angelfish.AfxSystem.X.Plugins.Test", "Angelfish.AfxSystem.X.Plugins.Test\Angelfish.AfxSystem.X.Plugins.Test.csproj", "{3B827BE6-989D-4EE3-A320-477333D2E589}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{CFD9EBE8-28B4-44DA-AA27-7882ED1A04FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFD9EBE8-28B4-44DA-AA27-7882ED1A04FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFD9EBE8-28B4-44DA-AA27-7882ED1A04FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B827BE6-989D-4EE3-A320-477333D2E589}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B827BE6-989D-4EE3-A320-477333D2E589}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B827BE6-989D-4EE3-A320-477333D2E589}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B827BE6-989D-4EE3-A320-477333D2E589}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
