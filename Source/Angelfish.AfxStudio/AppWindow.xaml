@@ -1,0 +1,76 @@
+﻿<Window x:Class="Angelfish.AfxStudio.AppWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
+        xmlns:local="clr-namespace:Angelfish.AfxStudio"
+        mc:Ignorable="d"
+        Title="Angelfish - Open Source Event Processing" Height="768" Width="1024" WindowStartupLocation="CenterScreen" WindowState="Maximized" Icon="Media/Icon.App.ico">
+    <Window.CommandBindings>
+        <CommandBinding Command="local:AppCommands.File_New" CanExecute="File_New_CanExecute" Executed="File_New_Executed"/>
+        <CommandBinding Command="local:AppCommands.File_Open" CanExecute="File_Open_CanExecute" Executed="File_Open_Executed"/>
+        <CommandBinding Command="local:AppCommands.File_Save" CanExecute="File_Save_CanExecute" Executed="File_Save_Executed"/>
+        <CommandBinding Command="local:AppCommands.File_Save_As" CanExecute="File_Save_As_CanExecute" Executed="File_Save_As_Executed"/>
+        <CommandBinding Command="local:AppCommands.File_Exit" CanExecute="File_Exit_CanExecute" Executed="File_Exit_Executed"/>
+    </Window.CommandBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Menu Grid.Row="0">
+                <MenuItem Header="_File">
+                    <MenuItem x:Name="_Menu_File_New" Header="_New" Command="local:AppCommands.File_New"/>
+                    <MenuItem x:Name="_Menu_File_Open" Header="_Open" Command="local:AppCommands.File_Open"/>
+                    <Separator />
+                    <MenuItem x:Name="_Menu_File_Save" Header="_Save" Command="local:AppCommands.File_Save"/>
+                    <MenuItem x:Name="_Menu_File_Save_As" Header="_Save As..." Command="local:AppCommands.File_Save_As"/>
+                    <Separator />
+                    <MenuItem x:Name="_Menu_File_Exit" Header="_Exit" Command="local:AppCommands.File_Exit"/>
+                </MenuItem>
+                <MenuItem Header="_Edit">
+                    <MenuItem x:Name="_Menu_Edit_Cut" Header="_Cut"/>
+                    <MenuItem x:Name="_Menu_Edit_Copy" Header="_Copy"/>
+                    <Separator/>
+                    <MenuItem x:Name="_Menu_Edit_Paste" Header="_Paste"/>
+                </MenuItem>
+                <MenuItem Header="View"/>
+                <MenuItem Header="Project"/>
+                <MenuItem Header="Help">
+                    <MenuItem x:Name="_Menu_Help_About" Header="_About"/>
+                </MenuItem>
+            </Menu>
+            <!-- TODO: Add toolbar here, later... -->
+        </Grid>
+        <xcad:DockingManager x:Name="_Docking_Manager" Grid.Row="1" AllowMixedOrientation="True" BorderBrush="Black" BorderThickness="1">
+            <xcad:LayoutRoot x:Name="_Docking_Layout_Root">
+                <xcad:LayoutPanel Orientation="Horizontal">
+                    <xcad:LayoutAnchorablePane DockWidth="200">
+                        <xcad:LayoutAnchorable ContentId="" Title="Operators" CanHide="False" CanClose="False" AutoHideWidth="240">
+                            <!-- TBD -->
+                        </xcad:LayoutAnchorable>
+                    </xcad:LayoutAnchorablePane>
+                    <xcad:LayoutPanel Orientation="Vertical">
+                        <xcad:LayoutDocumentPaneGroup>
+                            <xcad:LayoutDocumentPane x:Name="_Docking_Layout_Document_Pane">
+                                <!-- TBD -->
+                            </xcad:LayoutDocumentPane>
+                        </xcad:LayoutDocumentPaneGroup>
+                        <xcad:LayoutAnchorablePane DockHeight="256">
+                            <xcad:LayoutAnchorable ContentId="" Title="Status Display" CanHide="False" CanClose="False">
+                                <!-- TBD -->
+                            </xcad:LayoutAnchorable>
+                        </xcad:LayoutAnchorablePane>
+                    </xcad:LayoutPanel>
+                </xcad:LayoutPanel>
+            </xcad:LayoutRoot>
+        </xcad:DockingManager>
+    </Grid>
+</Window>
