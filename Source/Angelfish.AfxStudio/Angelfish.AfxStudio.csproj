@@ -124,6 +124,10 @@
     <Resource Include="Media\Icon.App.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Angelfish.AfxSystem.A.Common.Ui\Angelfish.AfxSystem.A.Common.Ui.csproj">
+      <Project>{9b7b6346-60b2-45d9-a6ae-7ee9359336c0}</Project>
+      <Name>Angelfish.AfxSystem.A.Common.Ui</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Angelfish.AfxSystem.A.Common\Angelfish.AfxSystem.A.Common.csproj">
       <Project>{60481d5e-52a0-4556-9d05-6b6269bacacb}</Project>
       <Name>Angelfish.AfxSystem.A.Common</Name>

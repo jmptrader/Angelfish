@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angelfish.AfxStudio", "Ange
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angelfish.AfxSystem.A.Common", "Angelfish.AfxSystem.A.Common\Angelfish.AfxSystem.A.Common.csproj", "{60481D5E-52A0-4556-9D05-6B6269BACACB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angelfish.AfxSystem.A.Common.Ui", "Angelfish.AfxSystem.A.Common.Ui\Angelfish.AfxSystem.A.Common.Ui.csproj", "{9B7B6346-60B2-45D9-A6AE-7EE9359336C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{60481D5E-52A0-4556-9D05-6B6269BACACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60481D5E-52A0-4556-9D05-6B6269BACACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60481D5E-52A0-4556-9D05-6B6269BACACB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B7B6346-60B2-45D9-A6AE-7EE9359336C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B7B6346-60B2-45D9-A6AE-7EE9359336C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B7B6346-60B2-45D9-A6AE-7EE9359336C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B7B6346-60B2-45D9-A6AE-7EE9359336C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
