@@ -132,6 +132,10 @@
       <Project>{60481d5e-52a0-4556-9d05-6b6269bacacb}</Project>
       <Name>Angelfish.AfxSystem.A.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Angelfish.AfxSystem.X.Common\Angelfish.AfxSystem.X.Common.csproj">
+      <Project>{cfd9ebe8-28b4-44da-aa27-7882ed1a04fb}</Project>
+      <Name>Angelfish.AfxSystem.X.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
