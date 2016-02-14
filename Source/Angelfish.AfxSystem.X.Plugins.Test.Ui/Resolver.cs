@@ -72,7 +72,7 @@ namespace Angelfish.AfxSystem.X.Plugins.Test.Ui
 
         public object GetComponentBitmap(Guid component)
         {
-            string path = "pack://application:,,,/Angelfish.AfxSystem.X.Plugins.Testing.Ui;component/Media/";
+            string path = "pack://application:,,,/Angelfish.AfxSystem.X.Plugins.Test.Ui;component/Media/";
             switch (component.ToString())
             {
                 // Get the bitmap image for the EventReader plug-in:
