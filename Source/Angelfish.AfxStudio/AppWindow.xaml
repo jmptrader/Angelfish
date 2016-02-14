@@ -1,4 +1,4 @@
-﻿<Window x:Class="Angelfish.AfxStudio.AppWindow"
+﻿<Window xmlns:Metadata="clr-namespace:Angelfish.AfxSystem.A.Common.Ui.Plugins.Metadata;assembly=Angelfish.AfxSystem.A.Common.Ui"  x:Class="Angelfish.AfxStudio.AppWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +7,7 @@
         xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:local="clr-namespace:Angelfish.AfxStudio"
         mc:Ignorable="d"
-        Title="Angelfish - Open Source Event Processing" Height="768" Width="1024" WindowStartupLocation="CenterScreen" WindowState="Maximized" Icon="Media/Icon.App.ico">
+        Title="Angelfish - Open Source Event Processing" Height="768" Width="1024" WindowStartupLocation="CenterScreen" WindowState="Maximized" Icon="Media/Icon.App.ico" Loaded="Window_Loaded">
     <Window.CommandBindings>
         <CommandBinding Command="local:AppCommands.File_New" CanExecute="File_New_CanExecute" Executed="File_New_Executed"/>
         <CommandBinding Command="local:AppCommands.File_Open" CanExecute="File_Open_CanExecute" Executed="File_Open_Executed"/>
@@ -54,7 +54,7 @@
                 <xcad:LayoutPanel Orientation="Horizontal">
                     <xcad:LayoutAnchorablePane DockWidth="200">
                         <xcad:LayoutAnchorable ContentId="" Title="Operators" CanHide="False" CanClose="False" AutoHideWidth="240">
-                            <!-- TBD -->
+                           <Metadata:AfxComponentCatalogView x:Name="_Component_Catalog_View"/>
                         </xcad:LayoutAnchorable>
                     </xcad:LayoutAnchorablePane>
                     <xcad:LayoutPanel Orientation="Vertical">

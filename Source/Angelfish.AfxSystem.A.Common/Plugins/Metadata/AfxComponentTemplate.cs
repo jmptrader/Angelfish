@@ -26,6 +26,8 @@ namespace Angelfish.AfxSystem.A.Common.Plugins.Metadata
         /// </summary>
         public string Name { get; private set; }
 
+        public Guid Resolver { get; private set; }
+
         /// <summary>
         /// The actual .NET type of the corresponding component.
         /// </summary>
@@ -80,6 +82,7 @@ namespace Angelfish.AfxSystem.A.Common.Plugins.Metadata
             {
                 this.Id = new Guid(identityAttribute.Id);
                 this.Name = identityAttribute.Name;
+                this.Resolver = new Guid(identityAttribute.Resolver);
             }
 
             // Retrieve the AfxOperatorIncomingPortAttribute(s) from the

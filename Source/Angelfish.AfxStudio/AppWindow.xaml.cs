@@ -13,6 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Angelfish.AfxSystem.A.Common.Services;
+using Angelfish.AfxSystem.A.Common.Plugins.Metadata;
+using Angelfish.AfxSystem.A.Common.Ui.Plugins.Metadata;
+
 namespace Angelfish.AfxStudio
 {
     /// <summary>
@@ -73,6 +77,27 @@ namespace Angelfish.AfxStudio
         public void File_Exit_CanExecute(object sender, CanExecuteRoutedEventArgs args)
         {
             args.CanExecute = true;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Retrieve a reference to the application's service container:
+            var appServices = Application.Current.Properties["App.Services"] as AfxServices;
+            if (appServices != null)
+            {
+                // Retrieve a reference to the plug-in catalog service:
+                var pluginCatalog = appServices.GetService(typeof(IAfxComponentCatalog))
+                    as IAfxComponentCatalog;
+
+                // Instantiate a view model for the plug-in catalog user
+                // control and bind it so that we can display all of the
+                // plug-in prototypes that are loaded into the system:
+                if (pluginCatalog != null)
+                {
+                    var viewModel = new AfxComponentCatalogViewModel(pluginCatalog);
+                    _Component_Catalog_View.DataContext = viewModel;
+                }
+            }
         }
     }
 
