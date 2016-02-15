@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <TreeView x:Name="_TreeView_Control" ItemsSource="{Binding Items}">
+        <TreeView x:Name="_TreeView_Control" ItemsSource="{Binding Items}" MouseLeftButtonDown="_TreeView_Control_MouseLeftButtonDown" MouseMove="_TreeView_Control_MouseMove">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Items}">
                     <TextBlock Text="{Binding Title}" Margin="0,0,0,5"/>

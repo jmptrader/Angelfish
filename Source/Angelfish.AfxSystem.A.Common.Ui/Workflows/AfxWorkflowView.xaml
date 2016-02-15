@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <ScrollViewer x:Name="_ScrollViewer_Control">
+        <ScrollViewer x:Name="_ScrollViewer_Control" AllowDrop="True" DragEnter="_ScrollViewer_Control_DragEnter" DragOver="_ScrollViewer_Control_DragOver" Drop="_ScrollViewer_Control_Drop">
             <Grid x:Name="_ScrollViewer_Content" Background="DarkGray"/>
         </ScrollViewer>
     </Grid>
