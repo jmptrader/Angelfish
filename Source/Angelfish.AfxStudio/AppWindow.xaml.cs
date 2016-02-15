@@ -12,10 +12,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.AvalonDock.Layout;
 
 using Angelfish.AfxSystem.A.Common.Services;
 using Angelfish.AfxSystem.A.Common.Plugins.Metadata;
 using Angelfish.AfxSystem.A.Common.Ui.Plugins.Metadata;
+
+using Angelfish.AfxSystem.A.Common.Ui.Workflows;
 
 namespace Angelfish.AfxStudio
 {
@@ -31,7 +34,18 @@ namespace Angelfish.AfxStudio
 
         public void File_New_Executed(object sender, ExecutedRoutedEventArgs args)
         {
+            // Create a new instance of a worflow deisgn surface and add it
+            // to the docking container's collection of document panes:
+            var documentView = new AfxWorkflowView();
 
+            var documentPane = new LayoutDocument();
+            documentPane.Content = documentView;
+
+            // NOTE: This is hard-coded for now, we'll revisit this a little
+            // later in the tutorial, when we start thinking about how we're
+            // going to persist workflow data out to a file...
+            documentPane.Title = "New Workflow";
+            _Docking_Layout_Document_Pane.Children.Add(documentPane);
         }
 
         public void File_New_CanExecute(object sender, CanExecuteRoutedEventArgs args)
