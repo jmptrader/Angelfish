@@ -54,6 +54,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Plugins\AfxComponentEndpointViewModel.cs" />
+    <Compile Include="Plugins\AfxComponentOperatorViewModel.cs" />
     <Compile Include="Plugins\Metadata\AfxComponentCatalogView.xaml.cs">
       <DependentUpon>AfxComponentCatalogView.xaml</DependentUpon>
     </Compile>
