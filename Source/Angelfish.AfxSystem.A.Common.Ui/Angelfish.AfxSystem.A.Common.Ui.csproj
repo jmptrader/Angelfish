@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AfxVisualTree.cs" />
+    <Compile Include="Plugins\AfxComponentEndpointViewModel.cs" />
     <Compile Include="Plugins\Metadata\AfxComponentCatalogView.xaml.cs">
       <DependentUpon>AfxComponentCatalogView.xaml</DependentUpon>
     </Compile>
