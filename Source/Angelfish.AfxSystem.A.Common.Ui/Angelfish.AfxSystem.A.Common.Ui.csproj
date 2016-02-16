@@ -49,6 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AfxVisualTree.cs" />
+    <Compile Include="Plugins\AfxComponentEndpointView.xaml.cs">
+      <DependentUpon>AfxComponentEndpointView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Plugins\AfxComponentEndpointViewModel.cs" />
     <Compile Include="Plugins\Metadata\AfxComponentCatalogView.xaml.cs">
       <DependentUpon>AfxComponentCatalogView.xaml</DependentUpon>
@@ -94,6 +98,10 @@
     <Resource Include="Media\icon.component.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Plugins\AfxComponentEndpointView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Plugins\Metadata\AfxComponentCatalogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

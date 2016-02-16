@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="Angelfish.AfxSystem.A.Common.Ui.Plugins.AfxComponentEndpointView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Angelfish.AfxSystem.A.Common.Ui.Plugins"
+             mc:Ignorable="d" SizeChanged="UserControl_SizeChanged">
+    <Grid>
+        <Grid.Resources>
+            <Style x:Key="MessagePortStyle" TargetType="Ellipse">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
+                        <Setter Property="Fill" Value="LightBlue"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=IsSelected}" Value="False">
+                        <Setter Property="Fill" Value="Black"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="ControlPortStyle" TargetType="Rectangle">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
+                        <Setter Property="Fill" Value="LightBlue"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=IsSelected}" Value="False">
+                        <Setter Property="Fill" Value="Black"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <ControlTemplate x:Key="MessagePort">
+                <Ellipse StrokeThickness="1" Stroke="White" Width="13" Height="13" Style="{StaticResource MessagePortStyle}"/>
+            </ControlTemplate>
+            <ControlTemplate x:Key="ControlPort">
+                <Rectangle StrokeThickness="1" Stroke="White"  Width="13" Height="13" Style="{StaticResource ControlPortStyle}"/>
+            </ControlTemplate>
+            <Style x:Key="PortStyle" TargetType="{x:Type ContentControl}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=Type}" Value="control">
+                        <Setter Property="Template" Value="{StaticResource ControlPort}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=Type}" Value="message">
+                        <Setter Property="Template" Value="{StaticResource MessagePort}"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+        <ContentControl x:Name="_Component_Port_Control" Style="{StaticResource PortStyle}"/>
+    </Grid>
+</UserControl>
