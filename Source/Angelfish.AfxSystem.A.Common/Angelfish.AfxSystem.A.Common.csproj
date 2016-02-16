@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Plugins\AfxComponent.cs" />
+    <Compile Include="Plugins\AfxConnector.cs" />
     <Compile Include="Plugins\Metadata\AfxComponentEndpoint.cs" />
     <Compile Include="Plugins\Metadata\AfxComponentPackage.cs" />
     <Compile Include="Plugins\Metadata\AfxComponentCatalog.cs" />
