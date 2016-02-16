@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="Angelfish.AfxSystem.A.Common.Ui.Plugins.AfxComponentOperatorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Angelfish.AfxSystem.A.Common.Ui.Plugins"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+    </UserControl.Resources>
+    <Grid x:Name="_Component_View_Control">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="_Component_View_Content" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <ItemsControl Grid.Column="0" x:Name="_Component_Incoming_Ports" 
+                          ItemsSource="{Binding IncomingPorts}"  
+                          VerticalAlignment="Center" 
+                          Width="14">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:AfxComponentEndpointView ConnectionPoint="{Binding Centerpoint, Mode=OneWayToSource}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Grid Grid.Column="1">
+                <Grid Height="78" Width="78">
+                    <Border x:Name="_Component_Border1" BorderThickness=".5" BorderBrush="DarkGray" 
+                            Background="LightBlue"  Opacity="0.5" CornerRadius="6" Visibility="Hidden"/>
+                    <Border x:Name="_Component_Border2" BorderThickness=".5" BorderBrush="DarkGray" 
+                            Background="LightBlue"  Opacity="1"   CornerRadius="6" 
+                            Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolToVisibility}}"/>
+                    <Border x:Name="_Component_Border3" BorderThickness="2" BorderBrush="DarkGray"
+                            Opacity="1" Margin="10,10,10,10" CornerRadius="6" >
+                        <Border.Effect>
+                            <DropShadowEffect Opacity=".5"/>
+                        </Border.Effect>
+                        <Border.Background>
+                            White
+                        </Border.Background>
+                        <Grid>
+                            <Image x:Name="_Component_Image" RenderOptions.BitmapScalingMode="HighQuality" Height="48" Width="48">
+                                <Image.Style>
+                                    <Style TargetType="{x:Type Image}">
+                                        <Setter Property="Source" Value="{Binding Path=Image}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Image}" Value="{x:Null}">
+                                                <Setter Property="Source" Value="../Media/icon.component.png"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+            <!-- <StackPanel Grid.Column="2"  x:Name="_Component_Outgoing_Ports" VerticalAlignment="Center" Width="14"/> -->
+            <ItemsControl Grid.Column="2" x:Name="_Component_Outgoing_Ports" ItemsSource="{Binding OutgoingPorts}" VerticalAlignment="Center" Width="14">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:AfxComponentEndpointView ConnectionPoint="{Binding Centerpoint, Mode=OneWayToSource}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+        <Label Grid.Row="1" Content="{Binding Title}" HorizontalContentAlignment="Center"/>
+    </Grid>
+</UserControl>
