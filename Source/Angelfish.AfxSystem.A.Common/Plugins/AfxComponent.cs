@@ -106,12 +106,12 @@ namespace Angelfish.AfxSystem.A.Common.Plugins
             }
         }
 
-        public AfxComponentEndpoint GetOutgoingPort(string id)
+        public AfxComponentEndpoint GetOutgoingPort(Guid id)
         {
             return Template.OutgoingPorts.First(s => s.Id.CompareTo(id) == 0);
         }
 
-        public AfxComponentEndpoint GetIncomingPort(string id)
+        public AfxComponentEndpoint GetIncomingPort(Guid id)
         {
             return Template.IncomingPorts.First(s => s.Id.CompareTo(id) == 0);
         }

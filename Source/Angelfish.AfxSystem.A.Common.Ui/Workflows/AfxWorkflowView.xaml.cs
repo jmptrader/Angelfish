@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 using Angelfish.AfxSystem.A.Common.Plugins;
 using Angelfish.AfxSystem.A.Common.Plugins.Metadata;
+using Angelfish.AfxSystem.A.Common.Workflows;
 
 using Angelfish.AfxSystem.A.Common.Ui.Plugins;
 
@@ -101,8 +102,13 @@ namespace Angelfish.AfxSystem.A.Common.Ui.Workflows
         private Dictionary<Guid, List<Line>> _mapIncomingLinesByOperatorView =
             new Dictionary<Guid, List<Line>>();
 
+        /// <summary>
+        /// An instance of the logical representation for the workflow
+        /// that is being mapped to the design surface:
+        /// </summary>
+        private AfxWorkflow _workflowInstance { get; set; }
 
-        public AfxWorkflowView()
+        public AfxWorkflowView(AfxWorkflow workflow)
         {
             InitializeComponent();
 
@@ -112,6 +118,9 @@ namespace Angelfish.AfxSystem.A.Common.Ui.Workflows
 
             _draggingComponentEndpointLine.Visibility = Visibility.Hidden;
             _ScrollViewer_Content.Children.Add(_draggingComponentEndpointLine);
+
+            _workflowInstance = workflow;
+            
         }
 
         private void _ScrollViewer_Control_DragEnter(object sender, DragEventArgs args)
@@ -190,13 +199,16 @@ namespace Angelfish.AfxSystem.A.Common.Ui.Workflows
 
             // Create a new instance of a component data model, using
             // the corresponding component prototype:
-            var componentImpl = new AfxComponent(componentType);
+            var componentInstance = new AfxComponent(componentType);
 
             // Set the surface coordinates on the component instance
             // so that they can be serialized later, when the workflow
             // is saved to a file or deployed to the server side:
-            componentImpl.Properties.Add("Surface.X", position.X.ToString());
-            componentImpl.Properties.Add("Surface.Y", position.Y.ToString());
+            componentInstance.Properties.Add("Surface.X", position.X.ToString());
+            componentInstance.Properties.Add("Surface.Y", position.Y.ToString());
+
+            // Add the component instance to the underlying workflow model:
+            _workflowInstance.Components.Add(componentInstance);
 
             BitmapImage componentIcon = null;
 
@@ -208,10 +220,10 @@ namespace Angelfish.AfxSystem.A.Common.Ui.Workflows
                 componentIcon = resolver.GetProperty(componentType.Id, "Component.Bitmap") 
                     as BitmapImage;
             }
-
+            
             // Create the corresponding visual representation of the
             // component on the design surface:
-            Surface_CreateComponent(componentImpl, componentIcon);
+            Surface_CreateComponent(componentInstance, componentIcon);
         }
 
         /// <summary>
@@ -564,6 +576,9 @@ namespace Angelfish.AfxSystem.A.Common.Ui.Workflows
                             targetView.Model.Id,
                             targetPort.Model.Id
                         );
+
+                    // Add the connection to the underlying workflow instance:
+                    _workflowInstance.Connectors.Add(connection);
 
                     // Create the visual representation of the connection
                     // between the two components on the design surface:

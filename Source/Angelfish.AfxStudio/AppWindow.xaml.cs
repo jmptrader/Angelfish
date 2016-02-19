@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Xceed.Wpf.AvalonDock.Layout;
 
 using Angelfish.AfxSystem.A.Common.Services;
+using Angelfish.AfxSystem.A.Common.Workflows;
 using Angelfish.AfxSystem.A.Common.Plugins.Metadata;
 using Angelfish.AfxSystem.A.Common.Ui.Plugins.Metadata;
 
@@ -36,7 +37,7 @@ namespace Angelfish.AfxStudio
         {
             // Create a new instance of a worflow deisgn surface and add it
             // to the docking container's collection of document panes:
-            var documentView = new AfxWorkflowView();
+            var documentView = new AfxWorkflowView(new AfxWorkflow());
 
             var documentPane = new LayoutDocument();
             documentPane.Content = documentView;

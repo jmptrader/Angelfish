@@ -183,6 +183,7 @@ namespace Angelfish.AfxSystem.A.Common.Workflows
         {
             return _connectors.Where(s => (s.SourceOperator.CompareTo(component) == 0));
         }
-
     }
+
+    
 }
