@@ -46,11 +46,12 @@ namespace Angelfish.AfxSystem.A.Common.Ui.Plugins
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            var context = AfxVisualTree.FindAncestor<UserControl>(this);
-            Point position = this.TranslatePoint(new Point(0, 0), context);
+            var parent = AfxVisualTree.FindAncestor<UserControl>(this);
+            Point position = this.TranslatePoint(new Point(0, 0), parent);
             position.X += (this.ActualWidth / 2) + 1;
             position.Y += (this.ActualHeight / 2) + 1;
             ConnectionPoint = position;
         }
+
     }
 }

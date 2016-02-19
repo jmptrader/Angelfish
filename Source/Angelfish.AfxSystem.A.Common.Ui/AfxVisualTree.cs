@@ -25,6 +25,11 @@ namespace Angelfish.AfxSystem.A.Common.Ui
         public static T FindAncestor<T>(DependencyObject current, string parent=null) 
             where T : DependencyObject
         {
+            if (current != null)
+            {
+                current = VisualTreeHelper.GetParent(current);
+            }
+
             while (current != null)
             {
                 if (!string.IsNullOrEmpty(parent))

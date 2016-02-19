@@ -35,7 +35,7 @@ namespace Angelfish.AfxSystem.A.Common.Ui.Plugins
         /// </summary>
         /// <param name="identifier"></param>
         /// <returns></returns>
-        public Point GetIncomingPortPosition(string identifier)
+        public Point GetIncomingPortPosition(Guid identifier)
         {
             var portModel = Model.IncomingPorts.FirstOrDefault(port => port.Id.CompareTo(identifier) == 0 ? true : false);
             if (portModel != null)
@@ -53,7 +53,7 @@ namespace Angelfish.AfxSystem.A.Common.Ui.Plugins
         /// </summary>
         /// <param name="identifier"></param>
         /// <returns></returns>
-        public Point GetOutgoingPortPosition(string identifier)
+        public Point GetOutgoingPortPosition(Guid identifier)
         {
             var portModel = Model.OutgoingPorts.FirstOrDefault(port => port.Id.CompareTo(identifier) == 0 ? true : false);
             if (portModel != null)
