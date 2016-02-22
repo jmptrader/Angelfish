@@ -49,7 +49,7 @@
             </Menu>
             <!-- TODO: Add toolbar here, later... -->
         </Grid>
-        <xcad:DockingManager x:Name="_Docking_Manager" Grid.Row="1" AllowMixedOrientation="True" BorderBrush="Black" BorderThickness="1">
+        <xcad:DockingManager x:Name="_Docking_Manager" Grid.Row="1" AllowMixedOrientation="True" BorderBrush="Black" BorderThickness="1" ActiveContentChanged="_Docking_Manager_ActiveContentChanged">
             <xcad:LayoutRoot x:Name="_Docking_Layout_Root">
                 <xcad:LayoutPanel Orientation="Horizontal">
                     <xcad:LayoutAnchorablePane DockWidth="200">

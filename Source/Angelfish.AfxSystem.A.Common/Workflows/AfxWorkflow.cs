@@ -9,11 +9,14 @@ using System.Threading.Tasks;
 using System.Reflection;
 
 using Angelfish.AfxSystem.A.Common.Plugins;
+using Angelfish.AfxSystem.A.Common.Serialization;
 
 namespace Angelfish.AfxSystem.A.Common.Workflows
 {
-    public class AfxWorkflow
+    public class AfxWorkflow : IAfxSerializable
     {
+        public Guid Id { get; private set; }
+
         /// <summary>
         /// The collection of plug-in component instances that have
         /// been added to an instance of a workflow.
@@ -46,6 +49,23 @@ namespace Angelfish.AfxSystem.A.Common.Workflows
         private Dictionary<AfxConnector, Delegate> _delegates = new Dictionary<AfxConnector, Delegate>();
 
         public AfxWorkflow()
+        {
+            this.Id = Guid.NewGuid();
+            InitializeCollectionBindings();
+        }
+
+        /// <summary>
+        /// The serialization constructor that is required in order
+        /// to provide compatibility with the serialization system.
+        /// </summary>
+        /// <param name="id"></param>
+        public AfxWorkflow(Guid id)
+        {
+            this.Id = id;
+            InitializeCollectionBindings();
+        }
+
+        private void InitializeCollectionBindings()
         {
             // Register a collection change event handler to monitor any
             // changes that are made to the collection of components:
@@ -182,6 +202,31 @@ namespace Angelfish.AfxSystem.A.Common.Workflows
         private IEnumerable<AfxConnector> GetOutgoingConnectors(Guid component)
         {
             return _connectors.Where(s => (s.SourceOperator.CompareTo(component) == 0));
+        }
+
+        public void Serialize(IAfxObjectWriter serializer, IServiceProvider services)
+        {
+            serializer.WriteObject("Components", _components as Collection<AfxComponent>);
+            serializer.WriteObject("Connectors", _connectors as Collection<AfxConnector>);
+        }
+
+        public void Deserialize(IAfxObjectReader serializer, IServiceProvider services)
+        {
+            serializer.ReadObject<Collection<AfxComponent>>("Components", components =>
+            {
+                foreach(var component in components)
+                {
+                    _components.Add(component);
+                }
+            });
+
+            serializer.ReadObject<Collection<AfxConnector>>("Connectors", connectors =>
+            {
+                foreach(var connector in connectors)
+                {
+                    _connectors.Add(connector);
+                }
+            });
         }
     }
 

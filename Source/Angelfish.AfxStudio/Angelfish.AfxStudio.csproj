@@ -93,6 +93,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppWindowDocument.cs" />
+    <Compile Include="AppWindowDocument_Workflow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

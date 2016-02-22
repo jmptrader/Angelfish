@@ -18,6 +18,7 @@ using Angelfish.AfxSystem.A.Common.Plugins.Metadata;
 using Angelfish.AfxSystem.A.Common.Workflows;
 
 using Angelfish.AfxSystem.A.Common.Ui.Plugins;
+using System.Windows.Threading;
 
 namespace Angelfish.AfxSystem.A.Common.Ui.Workflows
 {
@@ -106,9 +107,11 @@ namespace Angelfish.AfxSystem.A.Common.Ui.Workflows
         /// An instance of the logical representation for the workflow
         /// that is being mapped to the design surface:
         /// </summary>
-        private AfxWorkflow _workflowInstance { get; set; }
+        public AfxWorkflow Model { get; private set; }
 
-        public AfxWorkflowView(AfxWorkflow workflow)
+        private bool _initialized { get; set; }
+
+        public AfxWorkflowView(AfxWorkflow model)
         {
             InitializeComponent();
 
@@ -119,9 +122,85 @@ namespace Angelfish.AfxSystem.A.Common.Ui.Workflows
             _draggingComponentEndpointLine.Visibility = Visibility.Hidden;
             _ScrollViewer_Content.Children.Add(_draggingComponentEndpointLine);
 
-            _workflowInstance = workflow;
-            
+            this.Model = model;
+            Initialize();
         }
+
+        private void Initialize()
+        {
+            // Defer the initialization of component instances until the
+            // entire visual tree for the design surface has been rendered:
+            Dispatcher.BeginInvoke(new Action(() => { Initialize_Components(); }), DispatcherPriority.ContextIdle, null);
+
+            // Defer the initialization of component connectors until all
+            // of the components have been rendered; otherwise the system
+            // will not be able to determine the coordinates it needs for
+            // drawing the connection lines between component ports:
+            Dispatcher.BeginInvoke(new Action(() => { Initialize_Connectors(); }), DispatcherPriority.ContextIdle, null);
+
+            // A final completion method is run to wrap up anything that
+            // needs to be done after all the visual components have been
+            // rendered on the design surface:
+            Dispatcher.BeginInvoke(new Action(() => { Initialize_Completion(); }), DispatcherPriority.ContextIdle, null);
+        }
+
+        private void Initialize_Components()
+        {
+            if (_initialized == false)
+            {
+                var appServices = Application.Current.Properties["App.Services"] as IServiceProvider;
+                if(appServices == null)
+                {
+                    throw new InvalidOperationException();
+                }
+
+                var componentCatalog = appServices.GetService(typeof(IAfxComponentCatalog)) as IAfxComponentCatalog;
+                if(componentCatalog == null)
+                {
+                    throw new InvalidOperationException();
+                }
+
+                foreach (var component in Model.Components)
+                {
+                    BitmapImage componentIcon = null;
+
+                    var resolver = componentCatalog.GetComponentResolver(component.Template.Resolver);
+                    if(resolver != null)
+                    {
+                        componentIcon = resolver.GetProperty(component.Template.Id, 
+                            "Component.Bitmap") as BitmapImage;
+                    }
+
+                    Surface_CreateComponent(component, componentIcon);
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        private void Initialize_Connectors()
+        {
+            if (_initialized == false)
+            {
+                foreach (var connector in Model.Connectors)
+                {
+                   Surface_CreateConnection(connector);
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        private void Initialize_Completion()
+        {
+            _initialized = true;
+        }
+
+
 
         private void _ScrollViewer_Control_DragEnter(object sender, DragEventArgs args)
         {
@@ -208,7 +287,7 @@ namespace Angelfish.AfxSystem.A.Common.Ui.Workflows
             componentInstance.Properties.Add("Surface.Y", position.Y.ToString());
 
             // Add the component instance to the underlying workflow model:
-            _workflowInstance.Components.Add(componentInstance);
+            Model.Components.Add(componentInstance);
 
             BitmapImage componentIcon = null;
 
@@ -578,7 +657,7 @@ namespace Angelfish.AfxSystem.A.Common.Ui.Workflows
                         );
 
                     // Add the connection to the underlying workflow instance:
-                    _workflowInstance.Connectors.Add(connection);
+                    Model.Connectors.Add(connection);
 
                     // Create the visual representation of the connection
                     // between the two components on the design surface:
@@ -645,8 +724,6 @@ namespace Angelfish.AfxSystem.A.Common.Ui.Workflows
             }
 
             _mapIncomingLinesByOperatorView[connection.TargetOperator].Add(connectionLine);
-
-
             _ScrollViewer_Content.Children.Add(connectionLine);
         }
 

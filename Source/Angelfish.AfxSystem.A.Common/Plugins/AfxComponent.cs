@@ -8,6 +8,7 @@ using Angelfish.AfxSystem.X.Common.Plugins;
 
 using Angelfish.AfxSystem.A.Common.Services;
 using Angelfish.AfxSystem.A.Common.Plugins.Metadata;
+using Angelfish.AfxSystem.A.Common.Serialization;
 
 namespace Angelfish.AfxSystem.A.Common.Plugins
 {
@@ -16,7 +17,7 @@ namespace Angelfish.AfxSystem.A.Common.Plugins
     /// of a plug-in component that has been instantiated in
     /// the context of a specific event processing workflow.
     /// </summary>
-    public class AfxComponent 
+    public class AfxComponent : IAfxSerializable
     {
         public Guid Id { get; private set; }
 
@@ -83,8 +84,7 @@ namespace Angelfish.AfxSystem.A.Common.Plugins
             // Instantiate a new instance of the corresponding
             // plug-in implementation type and maintain a local
             // reference to it for later use:
-            this.Instance = Template.Assembly.CreateInstance(typeName)
-                as IAfxComponent;
+            this.Instance = CreateInstance(template);
 
         }
 
@@ -115,7 +115,35 @@ namespace Angelfish.AfxSystem.A.Common.Plugins
         {
             return Template.IncomingPorts.First(s => s.Id.CompareTo(id) == 0);
         }
-        
 
+        public void Serialize(IAfxObjectWriter serializer, IServiceProvider services)
+        {
+            serializer.WriteObject("Title", this.Title);
+            serializer.WriteObject("Properties", this.Properties);
+            serializer.WriteObject("Prototype", this.Template.Id.ToString());
+        }
+
+        public void Deserialize(IAfxObjectReader serializer, IServiceProvider services)
+        {
+            this.Title = serializer.ReadObject<string>("Title");
+            this.Properties = serializer.ReadObject<Dictionary<string, string>>("Properties");
+
+            var prototype = serializer.ReadObject<string>("Prototype");
+            if(!string.IsNullOrEmpty(prototype))
+            {
+                var componentCatalog = services.GetService(typeof(IAfxComponentCatalog)) as IAfxComponentCatalog;
+                if(componentCatalog != null)
+                {
+                    this.Template = componentCatalog.GetComponentTemplate(new Guid(prototype));
+                    this.Instance = CreateInstance(this.Template);
+                }
+            }
+
+        }
+
+        private IAfxComponent CreateInstance(AfxComponentTemplate template)
+        {
+            return template.Assembly.CreateInstance(template.Type.FullName) as IAfxComponent;
+        }
     }
 }
