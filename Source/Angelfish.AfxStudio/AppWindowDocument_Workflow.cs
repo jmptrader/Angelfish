@@ -15,7 +15,12 @@ using Angelfish.AfxSystem.A.Common.Ui.Workflows;
 
 namespace Angelfish.AfxStudio
 {
-    class AppWindowDocument_Workflow : IAppWindowDocument
+    /// <summary>
+    /// An implementation of the application window
+    /// wrapper for instances of workflows that have
+    /// been loaded into the system.
+    /// </summary>
+    public class AppWindowDocument_Workflow : IAppWindowDocument
     {
         public string DocumentPath
         {
@@ -35,24 +40,28 @@ namespace Angelfish.AfxStudio
 
         private LayoutDocument _documentPane { get; set; }
 
-        public AppWindowDocument_Workflow()
+        /// <summary>
+        /// The workflow document instances need a reference to
+        /// the application's service container, because loading
+        /// a serialized workflow requires access to the component
+        /// catalog in order to reconstitute the plug-in operators
+        /// that are present on the workflow. 
+        /// </summary>
+        private IServiceProvider _documentSvcs { get; set; }
+
+        public AppWindowDocument_Workflow(IServiceProvider services)
         {
             _documentPane = new LayoutDocument();
             _documentPane.Content = new AfxWorkflowView(new AfxWorkflow());
             _documentPane.Title = "New Workflow";
+            _documentSvcs = services;
         }
 
-        public AppWindowDocument_Workflow(string path)
+        public void OnDocumentOpen(string path)
         {
-            if(string.IsNullOrEmpty(path))
-            {
-                throw new ArgumentException();
-            }
-
-            _documentPath = path;
-            _documentPane = new LayoutDocument();
-            _documentPane.Content = new AfxWorkflowView(ImportDocument(path));
+            _documentPane.Content = ImportDocument(path);
             _documentPane.Title = System.IO.Path.GetFileNameWithoutExtension(path);
+            _documentPath = path;
         }
 
         public void OnDocumentClose()
@@ -118,19 +127,13 @@ namespace Angelfish.AfxStudio
 
         private void ExportDocument(string path)
         {
-            var appServices = Application.Current.Properties["App.Services"] as IServiceProvider;
-            if (appServices == null)
-            {
-                throw new InvalidOperationException();
-            }
-
             var documentView = _documentPane.Content as AfxWorkflowView;
             if(documentView != null)
             {
                 var documentData = documentView.Model;
                 if(documentData != null)
                 {
-                    var serializer = new AfxSerializer(appServices);
+                    var serializer = new AfxSerializer(_documentSvcs);
                     serializer.Serialize(path, documentData);
                 }
             }
@@ -138,13 +141,7 @@ namespace Angelfish.AfxStudio
 
         private AfxWorkflow ImportDocument(string path)
         {
-            var appServices = Application.Current.Properties["App.Services"] as IServiceProvider;
-            if(appServices == null)
-            {
-                throw new InvalidOperationException();
-            }
-
-            var serializer = new AfxSerializer(appServices);
+            var serializer = new AfxSerializer(_documentSvcs);
             return serializer.Deserialize(path) as AfxWorkflow;
         }
     }

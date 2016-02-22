@@ -53,14 +53,17 @@ namespace Angelfish.AfxStudio
         /// </summary>
         private IAppWindowDocument _activeDocument { get; set; }
 
+        private IServiceProvider _appServices { get; set; }
+
         public AppWindow()
         {
             InitializeComponent();
+            var _appServices = Application.Current.Properties["App.Services"] as IServiceProvider;
         }
 
         public void File_New_Executed(object sender, ExecutedRoutedEventArgs args)
         {
-            _activeDocument = new AppWindowDocument_Workflow();
+            _activeDocument = new AppWindowDocument_Workflow(_appServices);
             _mapDocumentsByView.Add(_activeDocument.DocumentPane.Content, _activeDocument);
 
             _Docking_Layout_Document_Pane.Children.Add(_activeDocument.DocumentPane);
@@ -100,7 +103,8 @@ namespace Angelfish.AfxStudio
                     return;
                 }
 
-                _activeDocument = new AppWindowDocument_Workflow(fileDialog.FileName);
+                _activeDocument = new AppWindowDocument_Workflow(_appServices);
+                _activeDocument.OnDocumentOpen(fileDialog.FileName);
 
                 _mapDocumentsByPath.Add(_activeDocument.DocumentPath, _activeDocument);
                 _mapDocumentsByView.Add(_activeDocument.DocumentPane.Content, _activeDocument);

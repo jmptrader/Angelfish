@@ -17,8 +17,8 @@ namespace Angelfish.AfxStudio
         /// The fully-qualified path to the file that the
         /// document was originally loaded from; this can
         /// be used to ensure that the user does not load
-        /// the same file into the app twice, or to check
-        /// the file for changes in real-time.
+        /// the same file into the app twice, or to watch
+        /// for external modifications to the file.
         /// </summary>
         string DocumentPath { get; }
 
@@ -34,5 +34,7 @@ namespace Angelfish.AfxStudio
         void OnDocumentSave();
 
         void OnDocumentSaveAs();
+
+        void OnDocumentOpen(string path);
     }
 }
